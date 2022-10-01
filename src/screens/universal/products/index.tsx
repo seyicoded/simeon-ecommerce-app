@@ -3,12 +3,12 @@ import React from 'react'
 
 type Props = {}
 
-const Dashboard = (props: Props) => {
+const ProductViewer = (props: Props) => {
   return (
     <View>
-      <Text>Dashboard</Text>
+      <Text>ProductViewer</Text>
     </View>
   )
 }
 
-export default Dashboard
+export default ProductViewer
