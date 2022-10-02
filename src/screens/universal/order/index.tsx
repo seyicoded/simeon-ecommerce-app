@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import HeaderTwo from '../../../components/header/headerTwo'
 import AppContext from '../../../context'
-import ViewItem from '../../../components/order/ViewItem'
+import ViewItem from '../../../components/order/viewItem'
 
 type Props = {
     navigation: any;
