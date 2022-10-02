@@ -3,6 +3,7 @@ import React from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import Constant from '../../constants/collection/list'
 import Color from '../colors'
+import Toast from 'react-native-toast-message'
 
 type Props = {
     cartItemCount: number;
@@ -23,7 +24,17 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
         <FontAwesome onPress={()=>{
           navigation.navigate("SearchMain")
         }} name="search" size={32} color="grey" style={{ marginRight: 10 }} />
-        <FontAwesome name="shopping-cart" size={32} color="grey" />
+        <FontAwesome onPress={()=>{ 
+          if(!((cartItemCount !== 0) && (cartItemCount > 0))){
+            Toast.show({
+              type: "error",
+              text1: "No Item In Carts"
+            })
+            return
+          }
+          // check if item is in cart
+          navigation.navigate("CartScreen")
+         }} name="shopping-cart" size={32} color="grey" />
       </View>
     </View>
   )

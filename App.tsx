@@ -96,7 +96,7 @@ export default function App() {
 
           {
             (isLoading && (
-              <View style={{ position: 'absolute', flex: 1, zIndex: 999, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
+              <View style={{ position: 'absolute', flex: 1, zIndex: 999, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
                 <ActivityIndicator color={Color.PRIMARY_COLOR} />
               </View>
             ))
