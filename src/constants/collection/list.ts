@@ -5,6 +5,7 @@ const Constant = {
         PRODUCT: "product",
         CART: "cart",
         ORDER: "order",
+        PUSH_NOTIFICATION: "pushNotification",
     },
     LOCAL_STORAGE: {
         USER_STORE: "USER_STORE"

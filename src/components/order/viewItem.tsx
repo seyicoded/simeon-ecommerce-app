@@ -16,7 +16,7 @@ const ViewItem = ({context, index, item}: Props) => {
     return (
         <TouchableOpacity key={index} onPress={()=>{
             setIsOpen(!isOpen)
-        }}>
+        }} style={{ marginBottom: 20 }}>
             <View style={styles.container}>
                 <Text style={styles.orderCode}>Order: {item.data.orderCode}</Text>
                 
@@ -30,6 +30,10 @@ const ViewItem = ({context, index, item}: Props) => {
                         <Text style={styles.title}>Status</Text>
                         <Text style={{ color: colors.PRIMARY_COLOR }}>{item.data.status}</Text>
                     </View>
+                </View>
+
+                <View>
+                    <Text style={{ textAlign: 'right', marginVertical: 10 }}>{ (new Date(item.data.timestamp.seconds * 1000)).toDateString() }</Text>
                 </View>
 
                 {

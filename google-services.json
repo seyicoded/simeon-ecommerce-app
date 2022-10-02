@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "595988627302",
+    "project_id": "simeon-enterprise",
+    "storage_bucket": "simeon-enterprise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595988627302:android:c9e6e820d23e94a44b12a7",
+        "android_client_info": {
+          "package_name": "com.simeonecommerce.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595988627302-21farsd2j0hsodl0k6qe7edg5c6lsgig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvdyDNZNeHq1XuBFywHsrQQ7eScFTlzH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595988627302-21farsd2j0hsodl0k6qe7edg5c6lsgig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

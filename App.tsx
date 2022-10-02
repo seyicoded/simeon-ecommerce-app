@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, LogBox, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, LogBox, Text, View, ActivityIndicator, Platform, Alert } from 'react-native';
 import Index from './src';
 import {Provider} from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
@@ -11,6 +11,12 @@ import { useContext, useEffect, useState } from 'react';
 import Color from './src/components/colors';
 import { getUser } from './src/storage';
 import Toast from 'react-native-toast-message'
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import Constant from './src/constants/collection/list';
+
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDBv6cc8cl-7x6JLbUTdjSgO3y1oaY0yaY",
@@ -22,10 +28,12 @@ const firebaseConfig = {
   measurementId: "G-KESQC2CNLC"
 };
 
-// LogBox.ignoreAllLogs(true)
+LogBox.ignoreAllLogs(true)
 
 export default function App() {
   let myApp = initializeApp(firebaseConfig);
+
+  const db = getFirestore();
 
   const [allCategory, setAllCategory] = useState([])
   const [allProducts, setAllProducts] = useState([])
@@ -56,6 +64,7 @@ export default function App() {
   // console.log(initializeApp)
   
   useEffect(() => {
+    // AsyncStorage.clear()
     setQuick(!Quick);
     // console.log(allCategory, allProducts, allCarts, isLoading)
     // update context manually
@@ -88,6 +97,58 @@ export default function App() {
       }
     })()
   }, [])
+
+
+  // handle push notification :: start
+  const registerForPushNotificationsAsync = async () => {
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        Alert.alert('Failed to get push token for push notification!');
+        return;
+      }
+
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      // update fcm push notification entry
+      // @ts-ignore
+      const userData = JSON.parse(await getUser());
+      const userEmail = userData.email;
+      console.log(token);
+
+      const docRef = doc(db, Constant.COLLECTION.PUSH_NOTIFICATION, userEmail);
+      await setDoc(docRef, {
+        token
+      })
+      // this.setState({ expoPushToken: token });
+    } else {
+      // Alert.alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  };
+
+  useEffect(()=>{
+    if(!isSignedIn){
+      return
+    }
+
+    // process login
+    registerForPushNotificationsAsync()
+    
+  }, [isSignedIn])
+  // handle push notification :: stop
   
 
   return (
