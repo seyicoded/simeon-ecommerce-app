@@ -53,7 +53,9 @@ const Home = (props: Props) => {
         <Tab.Screen
           name='BSettingScreen'
           options={{ 
-            headerShown: false,
+            // headerShown: false,
+            // headerTitleAlign: 'left',
+            // headerTitleContainerStyle: {backgroundColor: 'red', padding: 0},
             tabBarIcon: ({color, focused, size})=> (<MaterialCommunityIcons name="account" size={size} color={color} />),
             title: "Setting"
            }}

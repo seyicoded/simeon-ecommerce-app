@@ -27,3 +27,9 @@ export const setUser = async(data)=>{
 
     return null;
 }
+
+export const deleteUser = async()=>{
+    await AsyncStorage.removeItem(USER_STORE)
+
+    return null;
+}

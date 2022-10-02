@@ -1,4 +1,4 @@
-import { collection, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
+import { collection, doc, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { View, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import HeaderOne from '../../../../components/header/headerOne'
@@ -90,6 +90,35 @@ const Dashboard = ({navigation, route}: Props) => {
             context[1].setIsLoading(false)
         });
     }
+
+    const getOrders = async ()=>{
+        if(!(context[0].isSignedIn)){
+            return null;
+        }
+
+        // @ts-ignore
+        const userData = JSON.parse(await getUser());
+        const userEmail = userData.email;
+
+        context[1].setIsLoading(true)
+        const collRef = collection(db, Constant.COLLECTION.ORDER);
+        const q = query(collRef, where("by", "==", userEmail))
+        const data = onSnapshot(q, (docs)=>{
+            // console.log("Current data: ", docs);
+            const temp = [];
+            docs.forEach(item=>{
+                temp.push({
+                    id: item.id,
+                    data: item.data()
+                })
+            })
+
+            // setcatData(temp)
+            context[1].setAllOrders(temp)
+
+            context[1].setIsLoading(false)
+        });
+    }
     
 
     useEffect(() => {
@@ -104,6 +133,7 @@ const Dashboard = ({navigation, route}: Props) => {
 
     useEffect(()=>{
         getCart()
+        getOrders()
     }, [context[0].isSignedIn])
     
 

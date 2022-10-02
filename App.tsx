@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
+import React from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, LogBox, Text, View, ActivityIndicator } from 'react-native';
 import Index from './src';
 import {Provider} from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
@@ -21,6 +22,7 @@ const firebaseConfig = {
   measurementId: "G-KESQC2CNLC"
 };
 
+// LogBox.ignoreAllLogs(true)
 
 export default function App() {
   let myApp = initializeApp(firebaseConfig);
@@ -28,6 +30,7 @@ export default function App() {
   const [allCategory, setAllCategory] = useState([])
   const [allProducts, setAllProducts] = useState([])
   const [allCarts, setAllCarts] = useState([])
+  const [allOrders, setAllOrders] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [Quick, setQuick] = useState(false)
@@ -37,6 +40,7 @@ export default function App() {
       allCategory,
       allProducts,
       allCarts,
+      allOrders,
       isSignedIn,
       isLoading
     },
@@ -44,6 +48,7 @@ export default function App() {
       setAllCategory: (val)=> setAllCategory(val),
       setAllProducts: (val)=> setAllProducts(val),
       setAllCarts: (val)=> setAllCarts(val),
+      setAllOrders: (val)=> setAllOrders(val),
       setIsSignedIn: (val)=> setIsSignedIn(val),
       setIsLoading: (val)=> setIsLoading(val)
     }
@@ -59,6 +64,7 @@ export default function App() {
         allCategory,
         allProducts,
         allCarts,
+        allOrders,
         isSignedIn,
         isLoading
       },
@@ -66,11 +72,12 @@ export default function App() {
         setAllCategory: (val)=> setAllCategory(val),
         setAllProducts: (val)=> setAllProducts(val),
         setAllCarts: (val)=> setAllCarts(val),
+        setAllOrders: (val)=> setAllOrders(val),
         setIsSignedIn: (val)=> setIsSignedIn(val),
         setIsLoading: (val)=> setIsLoading(val)
       }
     ])
-  }, [isLoading, isSignedIn, allCategory, allProducts, allCarts])
+  }, [isLoading, allOrders, isSignedIn, allCategory, allProducts, allCarts])
 
   useEffect(()=>{
     (async()=>{
@@ -96,7 +103,7 @@ export default function App() {
 
           {
             (isLoading && (
-              <View style={{ position: 'absolute', flex: 1, zIndex: 999, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+              <View style={{ position: 'absolute', flex: 1, zIndex: 999, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                 <ActivityIndicator color={Color.PRIMARY_COLOR} />
               </View>
             ))
