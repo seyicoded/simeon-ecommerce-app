@@ -10,6 +10,7 @@ type Props = {
 }
 
 const HeaderOne = ({cartItemCount, navigation}: Props) => {
+  // console.log(cartItemCount, 'cartItemCount')
   return (
     <View style={styles.container}>
       <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text>

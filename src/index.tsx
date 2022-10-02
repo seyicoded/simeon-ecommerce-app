@@ -7,6 +7,7 @@ import { getOnBoardState } from './storage';
 import Home from './screens/universal/Home';
 import CategoryProductList from './screens/universal/category/list';
 import SearchMain from './screens/universal/search';
+import ProductViewer from './screens/universal/products';
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -39,6 +40,7 @@ export default function Index() {
         <Screen name='Home' component={Home} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
         <Screen name="CategoryProductList" component={CategoryProductList} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
         <Screen name="SearchMain" component={SearchMain} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
+        <Screen name="ProductViewer" component={ProductViewer} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
     </Navigator>
   )
 }

@@ -8,6 +8,7 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import colors from '../../../../components/colors';
 import { Image } from 'react-native-elements'
 import ProductRenderer from '../../../../components/products/renderer';
+import { getUser } from '../../../../storage';
 
 const {height: deviceHeight, width: deviceWidth} = Dimensions.get('screen')
 
@@ -62,6 +63,35 @@ const Dashboard = ({navigation, route}: Props) => {
         });
     }
 
+    const getCart = async ()=>{
+        if(!(context[0].isSignedIn)){
+            return null;
+        }
+
+        // @ts-ignore
+        const userData = JSON.parse(await getUser());
+        const userEmail = userData.email;
+
+        context[1].setIsLoading(true)
+        const docRef = doc(db, Constant.COLLECTION.CART, userEmail);
+        const data = onSnapshot(docRef, (docs)=>{
+            // console.log("Current data: ", docs);
+            // const temp = [];
+            // docs.forEach(item=>{
+            //     temp.push({
+            //         id: item.id,
+            //         data: item.data()
+            //     })
+            // })
+
+            // setcatData(temp)
+            context[1].setAllCarts((docs.data())?.cartItems || [])
+
+            context[1].setIsLoading(false)
+        });
+    }
+    
+
     useEffect(() => {
         
         getCat()
@@ -71,11 +101,27 @@ const Dashboard = ({navigation, route}: Props) => {
         // 
       }
     }, [])
+
+    useEffect(()=>{
+        getCart()
+    }, [context[0].isSignedIn])
     
 
     return (
         <View style={styles.container}>
-            <HeaderOne navigation={navigation} cartItemCount={3} />
+            <HeaderOne navigation={navigation} cartItemCount={ (()=>{
+                let count = 0;
+
+                if(context[0].allCarts != undefined){
+                    (context[0].allCarts).map(__item=>{
+                        count += parseInt(__item.quantity);
+                    })
+                }
+
+                console.log(count)
+
+                return count;
+            })() } />
             <ScrollView style={styles.mainScroll}>
                 <View>
                     <Text style={styles.headTitle}>OUR PREMIUM CATEGORY</Text>
@@ -95,7 +141,7 @@ const Dashboard = ({navigation, route}: Props) => {
                                                 name: item.data.name,
                                                 id: item.id
                                             })
-                                        }} PlaceholderContent={()=><ActivityIndicator color={colors.PRIMARY_COLOR} />} source={{ uri: item.data.catUrl }} style={styles.catImage} />
+                                        }} PlaceholderContent={<ActivityIndicator color={colors.PRIMARY_COLOR} />} source={{ uri: item.data.catUrl }} style={styles.catImage} />
                                         <View style={styles.catContenTextContainer}>
                                             <Text style={styles.catContenText}>{item.data.name}</Text>
                                         </View>

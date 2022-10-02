@@ -8,6 +8,8 @@ import { initializeApp } from 'firebase/app';
 import AppContext from './src/context'
 import { useContext, useEffect, useState } from 'react';
 import Color from './src/components/colors';
+import { getUser } from './src/storage';
+import Toast from 'react-native-toast-message'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDBv6cc8cl-7x6JLbUTdjSgO3y1oaY0yaY",
@@ -27,6 +29,7 @@ export default function App() {
   const [allProducts, setAllProducts] = useState([])
   const [allCarts, setAllCarts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isSignedIn, setIsSignedIn] = useState(false)
   const [Quick, setQuick] = useState(false)
 
   const [contextVal, setContextVal] = useState([
@@ -34,17 +37,19 @@ export default function App() {
       allCategory,
       allProducts,
       allCarts,
+      isSignedIn,
       isLoading
     },
     {
       setAllCategory: (val)=> setAllCategory(val),
       setAllProducts: (val)=> setAllProducts(val),
       setAllCarts: (val)=> setAllCarts(val),
+      setIsSignedIn: (val)=> setIsSignedIn(val),
       setIsLoading: (val)=> setIsLoading(val)
     }
   ])
   // console.log(initializeApp)
-
+  
   useEffect(() => {
     setQuick(!Quick);
     // console.log(allCategory, allProducts, allCarts, isLoading)
@@ -54,16 +59,28 @@ export default function App() {
         allCategory,
         allProducts,
         allCarts,
+        isSignedIn,
         isLoading
       },
       {
         setAllCategory: (val)=> setAllCategory(val),
         setAllProducts: (val)=> setAllProducts(val),
         setAllCarts: (val)=> setAllCarts(val),
+        setIsSignedIn: (val)=> setIsSignedIn(val),
         setIsLoading: (val)=> setIsLoading(val)
       }
     ])
-  }, [isLoading, allCategory, allProducts, allCarts])
+  }, [isLoading, isSignedIn, allCategory, allProducts, allCarts])
+
+  useEffect(()=>{
+    (async()=>{
+      const isLogged = await getUser()
+
+      if(isLogged !== false){
+        setIsSignedIn(true)
+      }
+    })()
+  }, [])
   
 
   return (
@@ -74,6 +91,8 @@ export default function App() {
           <NavigationContainer>
             <Index />
           </NavigationContainer>
+
+          <Toast />
 
           {
             (isLoading && (
