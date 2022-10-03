@@ -173,7 +173,7 @@ const ProductViewer = ({navigation, route}: Props) => {
                         style={{  }}
                         customSlide={({ index, item, style, width })=>(
                             <View style={{ height: '100%', width }}>
-                                <Image PlaceholderContent={<ActivityIndicator />} resizeMode='cover' source={{ uri: item }} style={[styles.customImage]} />
+                                <Image PlaceholderContent={<ActivityIndicator />} resizeMode='contain' source={{ uri: item }} style={[styles.customImage]} />
                             </View>
                         )}/>
                 </View>
