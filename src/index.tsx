@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import OnBoard from './screens/guest/onBoard'
@@ -36,15 +36,17 @@ export default function Index() {
     return (<></>)
   }
 
+  const height = (Platform.OS == 'ios') ? getStatusBarHeight(true): getStatusBarHeight(true) + 20;
+
   return (
     <Navigator initialRouteName={firstTime ? 'OnBoard' : 'Home'}>
-        <Screen name='OnBoard' component={OnBoard} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true)} }} />
-        <Screen name='Home' component={Home} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
-        <Screen name="CategoryProductList" component={CategoryProductList} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
-        <Screen name="SearchMain" component={SearchMain} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
-        <Screen name="ProductViewer" component={ProductViewer} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
-        <Screen name="CartScreen" component={CartScreen} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
-        <Screen name="OrderScreen" component={OrderScreen} options={{ headerShown: false, cardStyle: {paddingTop: getStatusBarHeight(true), backgroundColor: 'white'} }} />
+        <Screen name='OnBoard' component={OnBoard} options={{ headerShown: false, cardStyle: {paddingTop: height} }} />
+        <Screen name='Home' component={Home} options={{ headerShown: false, cardStyle: {paddingTop: height, backgroundColor: 'white'} }} />
+        <Screen name="CategoryProductList" component={CategoryProductList} options={{ headerShown: false, cardStyle: {paddingTop: height, backgroundColor: 'white'} }} />
+        <Screen name="SearchMain" component={SearchMain} options={{ headerShown: false, cardStyle: {paddingTop: height, backgroundColor: 'white'} }} />
+        <Screen name="ProductViewer" component={ProductViewer} options={{ headerShown: false, cardStyle: {paddingTop: height, backgroundColor: 'white'} }} />
+        <Screen name="CartScreen" component={CartScreen} options={{ headerShown: false, cardStyle: {paddingTop: height, backgroundColor: 'white'} }} />
+        <Screen name="OrderScreen" component={OrderScreen} options={{ headerShown: false, cardStyle: {paddingTop: height, backgroundColor: 'white'} }} />
     </Navigator>
   )
 }
