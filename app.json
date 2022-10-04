@@ -1,11 +1,13 @@
 {
   "expo": {
+    "owner": "s-commerce",
     "name": "ecommerce",
     "slug": "ecommerce",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "ecommerce",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -51,6 +53,11 @@
           }
         }
       ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8cd8f961-962c-41bd-8fd4-5d93cc5cf28f"
+      }
     }
   }
 }

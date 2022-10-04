@@ -1,10 +1,9 @@
 import { collection, doc, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
-import { View, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, ActivityIndicator, StyleSheet, Dimensions, ScrollView, FlatList } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import HeaderOne from '../../../../components/header/headerOne'
 import AppContext from '../../../../context'
 import Constant from '../../../../constants/collection/list';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import colors from '../../../../components/colors';
 import { Image } from 'react-native-elements'
 import ProductRenderer from '../../../../components/products/renderer';

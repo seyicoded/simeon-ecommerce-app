@@ -26,8 +26,8 @@ const Setting = ({navigation, route}: Props) => {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '595988627302-21farsd2j0hsodl0k6qe7edg5c6lsgig.apps.googleusercontent.com',
-    // iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    // androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        iosClientId: '595988627302-r7da7fgqgk6tsn45h7susjp7ao55dm8g.apps.googleusercontent.com',
+        androidClientId: '595988627302-mvms1i2nkc1ioiqqkrgu4kj846ig69b9.apps.googleusercontent.com',
     // webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
   });
 
