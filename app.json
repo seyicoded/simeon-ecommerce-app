@@ -2,7 +2,7 @@
   "expo": {
     "name": "ecommerce",
     "slug": "ecommerce",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -26,9 +26,9 @@
       }
     },
     "android": {
-      "package":"com.simeonecommerce.app",
+      "package": "com.simeonecommerce.app",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -36,6 +36,21 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "SCTI",
+            "project": "react-native",
+            "authToken": "f9d6f325147e4517917b2ffc43a64a7dbb9fbd56911e4bb9be9494c4eaa33bc2"
+          }
+        }
+      ]
     }
   }
 }

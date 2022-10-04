@@ -15,6 +15,8 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import Constant from './src/constants/collection/list';
+import * as Sentry from 'sentry-expo'
+import SentryNative from '@sentry/react-native'
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,9 +30,16 @@ const firebaseConfig = {
   measurementId: "G-KESQC2CNLC"
 };
 
-LogBox.ignoreAllLogs(true)
+Sentry.init({
+  dsn: "https://97214d559ffe45e7a97b5ab873c400f7@o4503924351369216.ingest.sentry.io/4503924354646016",
+  enableInExpoDevelopment: true,
+  debug: true,
+  tracesSampleRate: 1.0,
+});
 
-export default function App() {
+// LogBox.ignoreAllLogs(true)
+
+function App() {
   let myApp = initializeApp(firebaseConfig);
 
   const db = getFirestore();
@@ -184,3 +193,15 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
 });
+
+const Wrapper = ()=>{
+  try{
+    return <App />
+  }catch(e){
+    Sentry.Native.captureException(e)
+  }
+}
+
+export default Wrapper;
+// export default (App);
+// export default Sentry.wrap(App);
