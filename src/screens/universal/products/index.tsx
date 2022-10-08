@@ -191,6 +191,11 @@ const ProductViewer = ({navigation, route}: Props) => {
                         </DataTable.Row>
 
                         <DataTable.Row>
+                            <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '400' }}>PRODUCT DESCRIPTION</DataTable.Cell>
+                            <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '600' }}>{item.data.desc}</DataTable.Cell>
+                        </DataTable.Row>
+
+                        <DataTable.Row>
                             <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '400' }}>AVAILABLE STOCK</DataTable.Cell>
                             <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '600' }}>{item.data.stockCount}</DataTable.Cell>
                         </DataTable.Row>
