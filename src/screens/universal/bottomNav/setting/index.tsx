@@ -43,7 +43,7 @@ const Setting = ({navigation, route}: Props) => {
                 const _res = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${authentication.accessToken}`);
 
                 // update store
-                await setUser(_res.data)
+                await setUser(_res.data, true)
 
                 // update/create entry into firebase
                 const email = _res.data.email;
@@ -86,7 +86,7 @@ const Setting = ({navigation, route}: Props) => {
   return (
     <View style={styles.container}>
       {
-        ((context[0].isSignedIn) && (userData != null) ) ? 
+        ((context[0].isSignedInMain) && (userData != null) ) ? 
         <View style={{ flex: 1 }}>
           
           <View style={[styles.card, { padding: 20, flexDirection: 'row' }]}>
@@ -152,6 +152,19 @@ const Setting = ({navigation, route}: Props) => {
           <View style={[styles.card, { padding: 20 }]}>
             <Button onPress={()=>promptAsync()} color={colors.PRIMARY_COLOR}>SIGN IN</Button>    
           </View>
+
+          <Text style={{ height: 20 }}/>
+
+          <TouchableOpacity onPress={()=>{
+            navigation.navigate("OrderScreen")
+          }}>
+            <View style={[styles.card, { padding: 20, flexDirection: 'row' }]}>
+              <FontAwesome5 name="jedi-order" size={24} color="black" />
+              <View style={{ flex: 1, marginLeft: 30 }}>
+                <Text style={{ fontWeight: '700', fontSize: 18 }}>My Orders History</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
 
           <Text style={{ height: 20 }}/>
 

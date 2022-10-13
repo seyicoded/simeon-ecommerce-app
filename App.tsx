@@ -9,7 +9,7 @@ import { initializeApp } from 'firebase/app';
 import AppContext from './src/context'
 import { useContext, useEffect, useState } from 'react';
 import Color from './src/components/colors';
-import { getUser } from './src/storage';
+import { getMainUser, getUser, setUser } from './src/storage';
 import Toast from 'react-native-toast-message'
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
@@ -17,6 +17,7 @@ import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import Constant from './src/constants/collection/list';
 import * as Sentry from 'sentry-expo'
 import SentryNative from '@sentry/react-native'
+import * as Application from 'expo-application';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -50,6 +51,7 @@ function App() {
   const [allOrders, setAllOrders] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isSignedIn, setIsSignedIn] = useState(false)
+  const [isSignedInMain, setIsSignedInMain] = useState(false)
   const [Quick, setQuick] = useState(false)
 
   const [contextVal, setContextVal] = useState([
@@ -59,6 +61,7 @@ function App() {
       allCarts,
       allOrders,
       isSignedIn,
+      isSignedInMain,
       isLoading
     },
     {
@@ -67,6 +70,7 @@ function App() {
       setAllCarts: (val)=> setAllCarts(val),
       setAllOrders: (val)=> setAllOrders(val),
       setIsSignedIn: (val)=> setIsSignedIn(val),
+      setIsSignedInMain: (val)=> setIsSignedInMain(val),
       setIsLoading: (val)=> setIsLoading(val)
     }
   ])
@@ -84,6 +88,7 @@ function App() {
         allCarts,
         allOrders,
         isSignedIn,
+        isSignedInMain,
         isLoading
       },
       {
@@ -92,6 +97,7 @@ function App() {
         setAllCarts: (val)=> setAllCarts(val),
         setAllOrders: (val)=> setAllOrders(val),
         setIsSignedIn: (val)=> setIsSignedIn(val),
+        setIsSignedInMain: (val)=> setIsSignedInMain(val),
         setIsLoading: (val)=> setIsLoading(val)
       }
     ])
@@ -100,8 +106,37 @@ function App() {
   useEffect(()=>{
     (async()=>{
       const isLogged = await getUser()
+      const isLoggedMain = await getMainUser()
+
+      if(isLoggedMain !== false){
+        setIsSignedInMain(true)
+      }
 
       if(isLogged !== false){
+        setIsSignedIn(true)
+      }else{
+        // so now ba, user isn't signed in so do a temporary login
+        let _id;
+        if(Platform.OS === "android"){
+          _id = Application.androidId;
+        }else{
+          _id = await Application.getIosIdForVendorAsync();
+        }
+
+        const _data = {
+          "email": _id,
+          "email_verified": true,
+          "family_name": "Guest",
+          "given_name": "User",
+          "locale": "en",
+          "name": "Guest User",
+          "picture": "https://lh3.googleusercontent.com/a/ALm5wu2h0hERj9Q0cXOQW9KndQBwPaWARSChYGndJO-w=s96-c",
+          "sub": "115864394117438044339"
+        }
+
+        console.log("reached as guess")
+
+        await setUser(_data)
         setIsSignedIn(true)
       }
     })()
