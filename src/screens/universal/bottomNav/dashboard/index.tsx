@@ -1,5 +1,5 @@
 import { collection, doc, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
-import { View, Text, ActivityIndicator, StyleSheet, Dimensions, ScrollView, FlatList } from 'react-native'
+import { View, Text, ActivityIndicator, StyleSheet, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import HeaderOne from '../../../../components/header/headerOne'
 import AppContext from '../../../../context'
@@ -8,8 +8,14 @@ import colors from '../../../../components/colors';
 import { Image } from 'react-native-elements'
 import ProductRenderer from '../../../../components/products/renderer';
 import { getUser } from '../../../../storage';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItem,
+    DrawerItemList } from '@react-navigation/drawer';
 
 const {height: deviceHeight, width: deviceWidth} = Dimensions.get('screen')
+const Drawer = createDrawerNavigator();
 
 type Props = {
     navigation: any,
@@ -233,4 +239,55 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Dashboard
+function CustomDrawerContent(props) {
+    const context = useContext(AppContext);
+    const db = getFirestore();
+
+
+    useEffect(()=>{
+        console.log(context[0].allCategory)
+    }, [])
+    return (
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+
+        <Text style={{ fontWeight: '800', marginLeft: 12, marginTop: 30, marginBottom: 8 }}>Our Categories</Text>
+
+        {
+            (context[0].allCategory).map(_item => {
+                if((_item.data.status) !== 1){
+                    return (<></>)
+                }
+                return (
+                    <DrawerItem
+                        label={_item.data.name}
+                        onPress={() => {
+                            // console.log(props)
+                            (props.navigation).closeDrawer();
+                            (props.navigation).navigate("CategoryProductList", {
+                                item: _item,
+                                name: _item.data.name,
+                                id: _item.id
+                            })
+                        }}
+                    />
+                )
+            })
+        }
+      </DrawerContentScrollView>
+    );
+  }
+
+function MyDrawer() {
+    return (
+      <Drawer.Navigator screenOptions={{ drawerActiveBackgroundColor: colors.PRIMARY_BG, drawerActiveTintColor: colors.PRIMARY_COLOR }} drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen options={{ 
+            headerShown: false,
+            title: "Home"
+         }} name="DashboardDrawer" component={Dashboard} />
+      </Drawer.Navigator>
+    );
+  }
+
+export default MyDrawer;
+// export default Dashboard

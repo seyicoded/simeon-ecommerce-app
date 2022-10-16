@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import Constant from '../../constants/collection/list'
 import Color from '../colors'
 import Toast from 'react-native-toast-message'
@@ -14,7 +14,13 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
   // console.log(cartItemCount, 'cartItemCount')
   return (
     <View style={styles.container}>
-      <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <MaterialCommunityIcons name='menu' size={32} color="grey" onPress={()=>{
+          navigation.openDrawer();
+        }} />
+        <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text>
+      </View>
+      
       <View style={{ flexDirection: 'row' }}>
         {
             ((cartItemCount !== 0) && (
@@ -54,7 +60,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     HeaderTitle: {
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      marginLeft: 8
     },
     cartIcon: {
         backgroundColor: Color.PRIMARY_COLOR,

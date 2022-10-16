@@ -9,7 +9,7 @@ import CartItem from '../../../components/cart/item';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getUser } from '../../../storage';
-import { addDoc, collection, doc, getFirestore, setDoc, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getFirestore, setDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { formatMoney } from '../../../util/functions';
 import Constant from '../../../constants/collection/list';
 import Toast from 'react-native-toast-message'
@@ -68,6 +68,24 @@ const CartScreen = ({navigation, route}: Props) => {
 
             const collRef = collection(db, Constant.COLLECTION.ORDER)
             const res = await addDoc(collRef, data);
+
+            // ...
+            // cartItems
+            // reduce item count on all properties
+            for (let i = 0; i < cartItems.length; i++) {
+                const __productId = cartItems[i].productId;
+                const __doc = doc(db, Constant.COLLECTION.PRODUCT, __productId);
+
+                // get stockCount
+                const __productData = (await getDoc(__doc)).data();
+                const stockCount = parseInt(__productData.stockCount) - (parseInt(cartItems[i].quantity) * 1);
+
+                const data = {
+                    stockCount: `${stockCount}`
+                }
+
+                await updateDoc(__doc, data)
+            }
 
             // clear cart
 

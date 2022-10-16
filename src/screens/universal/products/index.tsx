@@ -197,7 +197,7 @@ const ProductViewer = ({navigation, route}: Props) => {
 
                         <DataTable.Row>
                             <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '400' }}>AVAILABLE STOCK</DataTable.Cell>
-                            <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '600' }}>{item.data.stockCount}</DataTable.Cell>
+                            <DataTable.Cell textStyle={{ fontSize: 12, fontWeight: '600' }}>{item.data.stockCount} stock left</DataTable.Cell>
                         </DataTable.Row>
 
                         <DataTable.Row>
