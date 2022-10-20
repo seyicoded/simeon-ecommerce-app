@@ -33,8 +33,8 @@ export default function Index({navigation, route}: Props) {
             </View>
             {/* @ts-ignore */}
             <Animated.View style={{ flex: 0.3, opacity: fadeAnim1 }}>
-                <CustomText text='Welcome to E-commerce By Simeon !' type='title' customStyle={{ textAlign: 'center' }} />
-                <CustomText text='With long experience in the audio industry, we create the best quality products' type='desc' customStyle={{ textAlign: 'center' }} />
+                <CustomText text='Welcome to Btex Delivery!' type='title' customStyle={{ textAlign: 'center' }} />
+                <CustomText text='Develop by Simpre Enterprise' type='desc' customStyle={{ textAlign: 'center' }} />
                 <CustomButton onPress={navigateToHome} text='Get Started' icon={<AntDesign name="arrowright" size={24} color="white" />} />
             </Animated.View>
         </View>

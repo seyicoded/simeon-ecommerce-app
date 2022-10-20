@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ONBOARD_TOKEN: string = "APP::ONBOARD_TOKEN";
+const ONBOARD_TOKEN: string = "APP::ONBOARD_TOKEN_001";
 const USER_STORE: string = "APP::USER_STORE";
 const USER_STORE_MAIN: string = "APP::USER_STORE_MAIN";
 

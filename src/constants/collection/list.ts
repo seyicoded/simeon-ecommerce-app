@@ -12,7 +12,7 @@ const Constant = {
     },
     APP_CONFIG: {
         NAME: "E-Commerce",
-        WHATSAPP_NUMBER: '+2349023112671'
+        WHATSAPP_NUMBER: '+2348068907846'
     }
 }
 
