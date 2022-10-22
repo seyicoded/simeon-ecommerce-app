@@ -11,7 +11,7 @@ const Constant = {
         USER_STORE: "USER_STORE"
     },
     APP_CONFIG: {
-        NAME: "E-Commerce",
+        NAME: "BTEX",
         WHATSAPP_NUMBER: '+2348068907846'
     }
 }
