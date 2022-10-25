@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import Constant from '../../constants/collection/list'
@@ -18,7 +18,8 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
         <MaterialCommunityIcons name='menu' size={32} color="grey" onPress={()=>{
           navigation.openDrawer();
         }} />
-        <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text>
+        {/* <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text> */}
+        <Image source={Constant.APP_CONFIG.HEAD_LOGO} style={{ height: 28, resizeMode: 'contain', zIndex: -1, left: -10 }} />
       </View>
       
       <View style={{ flexDirection: 'row' }}>
