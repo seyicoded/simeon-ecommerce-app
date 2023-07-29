@@ -15,11 +15,11 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <MaterialCommunityIcons name='menu' size={32} color="grey" onPress={()=>{
+        <MaterialCommunityIcons name='menu' size={32} color="black" onPress={()=>{
           navigation.openDrawer();
         }} />
         {/* <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text> */}
-        <Image source={Constant.APP_CONFIG.HEAD_LOGO} style={{ height: 28, width: 28, resizeMode: 'contain', zIndex: -1, left: 10, borderRadius: 9 }} />
+        <Image source={Constant.APP_CONFIG.HEAD_LOGO} style={{ height: 42, width: 42, resizeMode: 'contain', zIndex: -1, left: 10, borderRadius: 9 }} />
       </View>
       
       <View style={{ flexDirection: 'row' }}>
@@ -30,7 +30,7 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
         }
         <FontAwesome onPress={()=>{
           navigation.navigate("SearchMain")
-        }} name="search" size={32} color="grey" style={{ marginRight: 10 }} />
+        }} name="search" size={24} color="black" style={{ marginRight: 14 }} />
         <FontAwesome onPress={()=>{ 
           if(!((cartItemCount !== 0) && (cartItemCount > 0))){
             Toast.show({
@@ -41,7 +41,7 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
           }
           // check if item is in cart
           navigation.navigate("CartScreen")
-         }} name="shopping-cart" size={32} color="grey" />
+         }} name="shopping-cart" size={24} color="black" />
       </View>
     </View>
   )
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 20,
-        paddingBottom: 12,
+        paddingTop: 26,
+        paddingBottom: 10,
         paddingRight: 24,
         borderBottomColor: 'rgba(0, 0, 0, 0.24)',
         borderBottomWidth: 0.3,
