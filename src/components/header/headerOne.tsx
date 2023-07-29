@@ -19,7 +19,7 @@ const HeaderOne = ({cartItemCount, navigation}: Props) => {
           navigation.openDrawer();
         }} />
         {/* <Text style={styles.HeaderTitle}>{Constant.APP_CONFIG.NAME}</Text> */}
-        <Image source={Constant.APP_CONFIG.HEAD_LOGO} style={{ height: 28, resizeMode: 'contain', zIndex: -1, left: -10 }} />
+        <Image source={Constant.APP_CONFIG.HEAD_LOGO} style={{ height: 28, width: 28, resizeMode: 'contain', zIndex: -1, left: 10, borderRadius: 9 }} />
       </View>
       
       <View style={{ flexDirection: 'row' }}>

@@ -12,7 +12,8 @@ const Constant = {
     },
     APP_CONFIG: {
         NAME: "BTEX",
-        HEAD_LOGO: require("../../../assets/br.jpg"),
+        // HEAD_LOGO: require("../../../assets/br.jpg"),
+        HEAD_LOGO: require("../../../assets/cvvvb.png"),
         WHATSAPP_NUMBER: '+2348068907846'
     }
 }
