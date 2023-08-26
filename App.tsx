@@ -15,8 +15,8 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import Constant from './src/constants/collection/list';
-import * as Sentry from 'sentry-expo'
-import SentryNative from '@sentry/react-native'
+// import * as Sentry from 'sentry-expo'
+// import SentryNative from '@sentry/react-native'
 import * as Application from 'expo-application';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,12 +31,12 @@ const firebaseConfig = {
   measurementId: "G-KESQC2CNLC"
 };
 
-Sentry.init({
-  dsn: "https://97214d559ffe45e7a97b5ab873c400f7@o4503924351369216.ingest.sentry.io/4503924354646016",
-  enableInExpoDevelopment: true,
-  debug: true,
-  tracesSampleRate: 1.0,
-});
+// Sentry.init({
+//   dsn: "https://97214d559ffe45e7a97b5ab873c400f7@o4503924351369216.ingest.sentry.io/4503924354646016",
+//   enableInExpoDevelopment: true,
+//   debug: true,
+//   tracesSampleRate: 1.0,
+// });
 
 // LogBox.ignoreAllLogs(true)
 
@@ -233,7 +233,7 @@ const Wrapper = ()=>{
   try{
     return <App />
   }catch(e){
-    Sentry.Native.captureException(e)
+    // Sentry.Native.captureException(e)
   }
 }
 

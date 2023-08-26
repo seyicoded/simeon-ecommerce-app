@@ -39,21 +39,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "sentry-expo"
-    ],
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "SCTI",
-            "project": "react-native",
-            "authToken": "f9d6f325147e4517917b2ffc43a64a7dbb9fbd56911e4bb9be9494c4eaa33bc2"
-          }
-        }
-      ]
-    },
     "extra": {
       "eas": {
         "projectId": "2fc6896c-bb29-4c37-9b14-8a8d84f91784"
